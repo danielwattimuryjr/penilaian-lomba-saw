@@ -117,6 +117,17 @@ class Contest extends Model
     private function calculateFinalScores($weightedScores, $participants, $assessmentFactors)
     {
         $finalScores = [];
+        $maxScores = [];
+
+        // Dapatkan skor maksimum untuk setiap faktor penilaian
+        foreach ($assessmentFactors as $factor) {
+            $maxScore = $participants->flatten()
+                ->where('contest_assessment_factor_id', $factor->id)
+                ->pluck('score')
+                ->max();
+
+            $maxScores[$factor->nama_faktor] = $maxScore ?: 0;
+        }
 
         foreach ($weightedScores as $participantId => $weightedRow) {
             $user = ContestParticipant::find($participantId);
@@ -135,16 +146,25 @@ class Contest extends Model
 
             foreach ($assessmentFactors as $factor) {
                 $score = $userScores->where('contest_assessment_factor_id', $factor->id)->pluck('score')->first() ?? 0;
+                $maxScore = $maxScores[$factor->nama_faktor];
+                $normalizedScore = $maxScore > 0 ? $score / $maxScore : 0;
+
                 $finalScores[$participantId]['details'][] = [
                     'factor' => $factor->nama_faktor,
                     'weight' => $factor->bobot_penilaian / 100,
-                    'score' => $score
+                    'score' => $score,
+                    'normalized_score' => $normalizedScore
                 ];
             }
         }
 
         $sortedFinalScores = collect($finalScores)->sortByDesc('final_score')->values()->all();
 
-        return $sortedFinalScores;
+        $result = [
+            'variable' => $maxScores,
+            'sorted' => $sortedFinalScores
+        ];
+
+        return $result;
     }
 }

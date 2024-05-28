@@ -17,11 +17,6 @@ export default function ContestDetailCard({ contest }) {
                         <dt className='text-sm font-medium leading-6'>Kode Perlombaan</dt>
                         <dd className='mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0'>{contest.kd_perlombaan}</dd>
                     </div>
-
-                    <div className='px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0'>
-                        <dt className='text-sm font-medium leading-6'>Pemenang</dt>
-                        <dd className='mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0'>{contest.kd_perlombaan}</dd>
-                    </div>
                 </dl>
             </CardContent>
         </Card>

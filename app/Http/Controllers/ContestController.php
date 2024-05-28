@@ -131,9 +131,9 @@ class ContestController extends Controller
 
     public function leaderboard(Contest $contest)
     {
-        $leaderboard = $contest->calculateSaw();
+        $saw_data = $contest->calculateSaw();
         $contest = new SingleContestResource($contest);
 
-        return inertia('leaderboard/index', compact('contest', 'leaderboard'));
+        return inertia('leaderboard/index', compact('saw_data', 'contest'));
     }
 }

@@ -39,7 +39,11 @@ export default function ParticipantCard({ participants, contest }) {
                                         <TableCell className='w-0 py-7 text-center'> {i + 1}</TableCell>
                                         <TableCell> {participant.nomor_peserta}</TableCell>
                                         <TableCell> {participant.nama_peserta}</TableCell>
-                                        <TableCell> {participant.email}</TableCell>
+                                        <TableCell>
+                                            <a href={`mailto:${participant.email}`} target='_blank'>
+                                                {participant.email}
+                                            </a>
+                                        </TableCell>
                                         <TableCell> {participant.nomor_telepon}</TableCell>
                                         <TableCell> {participant.created_at}</TableCell>
                                         <TableCell>
