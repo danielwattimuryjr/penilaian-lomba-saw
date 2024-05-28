@@ -24,4 +24,9 @@ class ContestParticipant extends Model
     {
         return $this->belongsTo(Contest::class);
     }
+
+    public function participant_scores()
+    {
+        return $this->hasMany(ParticipantScore::class);
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\ContestController;
 use App\Http\Controllers\ContestParticipantController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ParticipantScoreController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +38,11 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::resource('contests', ContestController::class);
-    Route::post('contest/{contest:kd_contest}/add-participant', [ContestParticipantController::class, 'store'])->name('contest_participants.store');
+    Route::post('contest/{contest}/add-participant', [ContestParticipantController::class, 'store'])->name('contest_participants.store');
+    Route::get('contest/{contest}/participant/{contest_participant}', [ParticipantScoreController::class, 'create'])->name('participant_score.create');
+    Route::post('contest/{contest}/participant/{contest_participant}', [ParticipantScoreController::class, 'store'])->name('participant_score.store');
+
+    Route::get('contest/{contest}/leaderboard', [ContestController::class, 'leaderboard'])->name('contests.leaderboard');
 });
 
 

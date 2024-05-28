@@ -6,7 +6,7 @@ export function cn(...inputs) {
     return twMerge(clsx(inputs));
 }
 
-export function roundToDecimalPlaces(number, decimalPlaces) {
+export function roundToDecimalPlaces(number, decimalPlaces = 3) {
     const factor = Math.pow(10, decimalPlaces);
     return Math.round(number * factor) / factor;
 }

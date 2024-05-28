@@ -128,4 +128,12 @@ class ContestController extends Controller
             DB::rollBack();
         }
     }
+
+    public function leaderboard(Contest $contest)
+    {
+        $leaderboard = $contest->calculateSaw();
+        $contest = new SingleContestResource($contest);
+
+        return inertia('leaderboard/index', compact('contest', 'leaderboard'));
+    }
 }

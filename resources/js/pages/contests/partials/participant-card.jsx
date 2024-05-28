@@ -1,5 +1,7 @@
+import { Button } from '@/components/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table';
+import { Link } from '@inertiajs/react';
 import AddParticipantDialog from './add-participant-dialog';
 
 export default function ParticipantCard({ participants, contest }) {
@@ -26,6 +28,7 @@ export default function ParticipantCard({ participants, contest }) {
                             <TableHead>Email</TableHead>
                             <TableHead>No. Telp.</TableHead>
                             <TableHead>Bergabung Pada</TableHead>
+                            <TableHead />
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -39,6 +42,17 @@ export default function ParticipantCard({ participants, contest }) {
                                         <TableCell> {participant.email}</TableCell>
                                         <TableCell> {participant.nomor_telepon}</TableCell>
                                         <TableCell> {participant.created_at}</TableCell>
+                                        <TableCell>
+                                            <Button variant='ghost' asChild>
+                                                <Link
+                                                    href={route('participant_score.create', {
+                                                        contest: contest.kd_perlombaan,
+                                                        contest_participant: participant,
+                                                    })}>
+                                                    Beri Nilai
+                                                </Link>
+                                            </Button>
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </>
